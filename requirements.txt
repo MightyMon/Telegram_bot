@@ -1,0 +1,2 @@
+python-telegram-bot==20.1
+django==4.1.7
