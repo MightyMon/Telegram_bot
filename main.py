@@ -2,40 +2,31 @@ import telebot
 import json
 import requests
 
-bot=telebot.TeleBot("6187881425:AAFP3k8vpT20_24DeCxKiMO6EVaO6Iawmc4")
+bot=telebot.TeleBot("6132037643:AAG_r3a_Djheiunr5-F4eBkkftomkMvPKEY")
 
 
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "Howdy, how are you doing?")
+    bot.reply_to(message, "Hey there how are you doing? \n For more information and to know commands available go to /help")
 
-def handle_prints(message):
-    message = str(message)
-    for i in message:
-        if i == ",":
-            print()
-        print(i, end="")
-
-
-@bot.message_handler(commands=['error'])
-def send_error(message):
-    handle_prints(message)
-    bot.send_message(chat_id=message.chat.id,text="hey broo thanks")
-
-
-@bot.message_handler(commands=['error'])
-def send_error(message):
-    handle_prints(message)
-    bot.send_message(chat_id=message.chat.id,text="hey broo thanks")
+@bot.message_handler(commands=['help'])
+def send_menu(message):
+    bot.reply_to(message, "use the /search command preceeding with the movie name to get the information abot the movie")
 
 @bot.message_handler(commands=['search'])
-def send_error(message):
-    handle_prints(message)
-    print(type(message.id.text))
-  #  mov_name=message.chat.text
-   # print(mov_name)
-    bot.send_message(chat_id=message.chat.id,text="this function works")
+def send_data(message):
+    
+    
+    mov_name=message.text
+    mov_name="http://www.omdbapi.com/?apikey=2232e923&t="+mov_name[7:]
+    response = requests.get(mov_name)
+    data=response.json()
+    img_url=data['Poster']
+    image_caption="Title:  "+data['Title']+"\n"+"\n"+'Date released:  '+data['Released']
+  
+
+    bot.send_photo(chat_id=message.chat.id, photo=img_url, caption=image_caption)
 
 
 
