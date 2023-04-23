@@ -2,7 +2,7 @@ import telebot
 import json
 import requests
 
-bot=telebot.TeleBot("6132037643:AAG_r3a_Djheiunr5-F4eBkkftomkMvPKEY")
+bot=telebot.TeleBot("<bot-token>")
 
 
 
@@ -19,7 +19,7 @@ def send_data(message):
     
     
     mov_name=message.text
-    mov_name="http://www.omdbapi.com/?apikey=2232e923&t="+mov_name[7:]
+    mov_name="http://www.omdbapi.com/?<apikey>"+mov_name[7:]
     response = requests.get(mov_name)
     data=response.json()
     img_url=data['Poster']
